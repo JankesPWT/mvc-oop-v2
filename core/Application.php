@@ -1,16 +1,24 @@
 <?php
+/** */
+namespace app\core;
+
 /**
  * Class Application
  * 
  * @author Jankes <jankes@jankes.com.pl>
- * @package ${NAMESPACE}
+ * @package app\core
  */
 
 class Application
 {
-    public function Router $router;
+    public Router $router;
 
     public function __conctruct() {
         $this->router = new Router();
+    }
+
+    public function run()
+    {
+        $this->router->resolve();
     }
 }
