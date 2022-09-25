@@ -1,5 +1,9 @@
 <?php
 /** */
+
+
+
+
 namespace app\core;
 
 /**
@@ -8,13 +12,14 @@ namespace app\core;
  * @author Jankes <jankes@jankes.com.pl>
  * @package app\core
  */
-
 class Application
 {
     public Router $router;
-
-    public function __conctruct() {
-        $this->router = new Router();
+    public Request $request;
+    public function __construct()
+    {
+        $this->request = new Request();
+        $this->router = new Router($this->request);
     }
 
     public function run()

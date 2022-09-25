@@ -1,19 +1,27 @@
 <?php
 /** Jankes */
 
+
+
+
+
 namespace app\core;
 
 /**
  * Class Router
  * 
  * @author Jankes <jankes@jankes.com.pl>
- * @package app\core
- *
+ * @package jankes/mvc-oop-v2
  */
-
- class Router
+class Router
  {
+    public Request $request;
     protected array $routes = [];
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
     public function get($path, $callback)
     {
@@ -22,6 +30,6 @@ namespace app\core;
 
     public function resolve()
     {
-        
+        $this->request->getPath();
     }
  }
