@@ -19,13 +19,11 @@ class Request
         if ($position !== false) {
             $path = substr($path, 0, $position); 
         }
-        echo $path;
-
-       
+        return $path;
     }
 
     public function getMethod()
     {
-
+        return strtolower($_SERVER['REQUEST_METHOD']);
     }
 }
