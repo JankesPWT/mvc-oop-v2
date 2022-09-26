@@ -30,25 +30,38 @@ class Router
 
     public function resolve()
     {
-        $path = $this->request->getPath(); // /user,  /contact
         $method = $this->request->getMethod(); //get lub post
+        $path = $this->request->getPath(); // /user,  /contact
         $callback = $this->routes[$method][$path] ?? false;
-        if ($callback === false) {
+        if ($callback == false) {
             return "Not found";
         }
-        if(is_string($callback)) {
+        if (is_string($callback)) {
             return $this->renderView($callback);
         }
         return call_user_func($callback);
     }
+
     public function renderView($view)
     {
         $layoutContent = $this->layoutContent();
-        include_once __DIR__."/../views/$view.php";
+        
+        $viewContent = $this->renderViewOnly($view);
+     
+        echo str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
-    protected function layoutContent()
+    public function layoutContent()
     {
-        
+        ob_start(); //starts output caching 
+        include_once Application::$ROOT_DIR."/views/layouts/main.php";
+        return ob_get_clean(); // w tutorialu jest ob_get_clean() ale nie działa
+    }
+
+    public function renderViewOnly($view)
+    {
+        ob_start();
+        include_once Application::$ROOT_DIR."/views/$view.php";
+        return ob_get_clean(); // w tutorialu jest ob_get_clean() ale nie działa
     }
  }
