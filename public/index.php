@@ -5,20 +5,13 @@
 
 
 
+require_once __DIR__.'/../vendor/autoload.php';
 
 use app\core\Application;
+    
+$app = new Application(dirname(__DIR__));
 
-require_once __DIR__.'/../vendor/autoload.php';
-$app = new Application();
-
-$app->router->get('/', function()
-{
-    return "hello world";
-});
-
-$app->router->get('/contact', function()
-{
-    return "contact";
-});
+$app->router->get('/', 'home');
+$app->router->get('/contact', 'contact');
 
 $app->run();
