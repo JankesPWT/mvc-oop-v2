@@ -1,1 +1,2 @@
-<h1>HOME from MAIN</h1>
+<h1>Hołm</h1>
+<h3>Witam konsumenta <?=$name ?></h3>

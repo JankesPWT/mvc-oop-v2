@@ -2,7 +2,7 @@
 
 
 
-<form>
+<form action="" method="post">
     <div class="form-group">
         <label>Subject</label>
         <input type="text" name="subject" class="form-control">
@@ -15,6 +15,6 @@
         <label>Body</label>
         <textarea name="body" class="form-control"></textarea>
     </div>
-    
+
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
