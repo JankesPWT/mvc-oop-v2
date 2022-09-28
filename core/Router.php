@@ -37,7 +37,7 @@ class Router
 
     public function resolve()
     {
-        $method = $this->request->getMethod(); //get lub post
+        $method = $this->request->method(); //get lub post
         $path = $this->request->getPath(); // /user,  /contact
         $callback = $this->routes[$method][$path] ?? false;
         if ($callback == false) {
