@@ -30,6 +30,11 @@ class Router
         $this->routes['get'][$path] = $callback;
     }
 
+    public function post($path, $callback)
+    {
+        $this->routes['post'][$path] = $callback;
+    }
+
     public function resolve()
     {
         $method = $this->request->getMethod(); //get lub post
