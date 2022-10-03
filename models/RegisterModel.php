@@ -22,7 +22,6 @@ class RegisterModel extends Model
         echo 'nowy juzer';
     }
 
-    
 	/**
 	 *
 	 * @return array
