@@ -17,6 +17,8 @@ $app->router->get('/', [new SiteController(), 'home']);
 $app->router->get('/contact', [new SiteController(), 'contact']);
 $app->router->post('/contact', [new SiteController(), 'handleContact']); //
 
+$app->router->get('/about', [new SiteController(), 'home']); //
+
 $app->router->get('/login', [new AuthController(), 'login']); //
 $app->router->post('/login', [new AuthController(), 'login']); //
 $app->router->get('/register', [new AuthController(), 'register']); //

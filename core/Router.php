@@ -40,7 +40,7 @@ class Router
         $method = $this->request->method(); //get lub post
         $path = $this->request->getPath(); // /user,  /contact
         $callback = $this->routes[$method][$path] ?? false;
-        if ($callback == false) {
+        if ($callback === false) {
             $this->response->statusCode(404);
             return $this->renderView("_404");
         }
@@ -48,7 +48,9 @@ class Router
             return $this->renderView($callback);
         }
         if (is_array($callback)) {
-            $callback[0] = new $callback[0]();
+            $controller = new $callback[0]; //instancja kontrolera
+            Application::$app->controller = $controller;
+            $callback[0] = $controller;
         }
         return call_user_func($callback, $this->request);
     }
@@ -67,8 +69,9 @@ class Router
     }
     public function layoutContent()
     {
+        $layout = Application::$app->controller->layout;
         ob_start(); //starts output caching
-        include_once Application::$ROOT_DIR."/views/layouts/main.php";
+        include_once Application::$ROOT_DIR."/views/layouts/$layout.php";
         return ob_get_clean();
     }
 
@@ -77,7 +80,6 @@ class Router
         foreach ($params as $key => $value) {
             $$key = $value;
         }
-     
         ob_start();
         include_once Application::$ROOT_DIR."/views/$view.php";
         return ob_get_clean();
