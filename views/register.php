@@ -1,3 +1,9 @@
+<?php
+/** @var $model \app\core\Model */
+
+use \app\core;
+?>
+
 <h1>Stwórz konto:</h1>
 
 <form action="" method="post">
@@ -5,7 +11,12 @@
         <div class="col">
             <div class="form-group">
                 <label>First name</label>
-                <input type="text" class="form-control" name="firstname">
+                <input type="text" name="firstname" value="<?php echo $model->firstname; ?>" 
+                class="form-control <?php echo $model->hasError('firstname') ? ' is-invalid' : ''?>">
+            </div>
+
+            <div class="invalid-feedback">
+                <?php echo $model->getFirstError('firstname'); ?>
             </div>
         </div>
         <div class="col">
