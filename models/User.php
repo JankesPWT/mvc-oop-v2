@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+
 use app\core\DbModel;
 
 
@@ -22,16 +23,18 @@ class User extends DbModel
         return 'users';
     }
 
-    public function register()
+    public function save()
     {
-        return $this->save();
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        return parent::save();
     }
 
-	/**
-	 *
-	 * @return array
-	 */
-	function rules(): array {
+    /**
+     *
+     * @return array
+     */
+    function rules(): array
+    {
         return [
             'firstname' => [self::RULE_REQUIRED],
             'lastname' => [self::RULE_REQUIRED],
@@ -39,7 +42,7 @@ class User extends DbModel
             'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8], [self::RULE_MAX, 'max' => 24]],
             'passwordConfirm' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
         ];
-	}
+    }
 
     public function attributes(): array
     {
