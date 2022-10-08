@@ -1,4 +1,5 @@
 <?php
+
 /** Jankes */
 
 namespace app\core;
@@ -72,11 +73,16 @@ class Database
 
     protected function saveMigrations(array $newMigrations)
     {
-        $str = implode(',', array_map(fn($m) => "('$m')", $newMigrations));
+        $str = implode(',', array_map(fn ($m) => "('$m')", $newMigrations));
         $statement = $this->pdo->prepare("INSERT INTO migrations (migration) VALUES 
             $str
         ");
         $statement->execute();
+    }
+
+    public function prepare($sql): \PDOStatement
+    {
+        return $this->pdo->prepare($sql);
     }
 
     private function log($message)
