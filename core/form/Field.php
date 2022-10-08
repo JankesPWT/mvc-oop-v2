@@ -1,6 +1,7 @@
 <?php
 
 namespace app\core\form;
+
 use app\core\Model;
 
 /**
@@ -33,14 +34,15 @@ class Field
 
     public function __toString()
     {
-        return sprintf('<div class="form-group">
+        return sprintf(
+            '<div class="form-group">
                 <label>%s</label>
                 <input type="%s" class="form-control%s" name="%s" value="%s">
                 <div class="invalid-feedback">
                     %s
                 </div>
             </div>',
-            $this->attribute,
+            $this->model->labels()[$this->attribute] ?? $this->attribute,
             $this->type,
             $this->model->hasError($this->attribute) ? ' is-invalid' : '',
             $this->attribute,
