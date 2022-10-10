@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\core\DbModel;
+use app\core\UserModel;
 
 
 /**
@@ -10,7 +11,7 @@ use app\core\DbModel;
  * @author Jankes <jankes@jankes.com.pl>
  * @package app\models
  */
-class User extends DbModel
+class User extends UserModel
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
@@ -26,6 +27,11 @@ class User extends DbModel
     public static function tableName(): string
     {
         return 'users';
+    }
+
+    public static function primaryKey(): string
+    {
+        return 'id';
     }
 
     public function save()
@@ -66,5 +72,10 @@ class User extends DbModel
             'password' => 'Hasło',
             'passwordConfirm' => 'Hasło Potwierdź',
         ];
+    }
+
+    public function getDisplayName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }
