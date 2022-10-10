@@ -1,4 +1,5 @@
 <?php
+
 /** Jankes */
 
 
@@ -14,7 +15,7 @@ namespace app\core;
  * @package jankes/mvc-oop-v2
  */
 class Router
- {
+{
     public Request $request;
     public Response $response;
     protected array $routes = [];
@@ -52,7 +53,7 @@ class Router
             Application::$app->controller = $controller;
             $callback[0] = $controller;
         }
-        return call_user_func($callback, $this->request);
+        return call_user_func($callback, $this->request, $this->response);
     }
 
     public function renderView($view, $params = [])
@@ -71,7 +72,7 @@ class Router
     {
         $layout = Application::$app->controller->layout;
         ob_start(); //starts output caching
-        include_once Application::$ROOT_DIR."/views/layouts/$layout.php";
+        include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
         return ob_get_clean();
     }
 
@@ -81,7 +82,7 @@ class Router
             $$key = $value;
         }
         ob_start();
-        include_once Application::$ROOT_DIR."/views/$view.php";
+        include_once Application::$ROOT_DIR . "/views/$view.php";
         return ob_get_clean();
     }
- }
+}
