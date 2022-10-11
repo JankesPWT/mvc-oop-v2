@@ -8,6 +8,9 @@
 
 namespace app\core;
 
+use app\core\exception\ForbiddenException;
+use app\core\exception\NotFoundException;
+
 /**
  * Class Router
  * 
@@ -42,16 +45,23 @@ class Router
         $path = $this->request->getPath(); // /user,  /contact
         $callback = $this->routes[$method][$path] ?? false;
         if ($callback === false) {
-            $this->response->statusCode(404);
-            return $this->renderView("_404");
+            throw new NotFoundException();
         }
         if (is_string($callback)) {
             return $this->renderView($callback);
         }
         if (is_array($callback)) {
-            $controller = new $callback[0]; //instancja kontrolera
+            /**
+             * @var $controller \app\core\Controller
+             */
+            $controller = new $callback[0]();
             Application::$app->controller = $controller;
+            $controller->action = $callback[1];
             $callback[0] = $controller;
+
+            foreach ($controller->getMiddlewares() as $middleware) {
+                $middleware->execute();
+            }
         }
         return call_user_func($callback, $this->request, $this->response);
     }

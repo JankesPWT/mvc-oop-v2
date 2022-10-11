@@ -61,14 +61,21 @@ class Application
         $this->session->remove('user');
     }
 
-    public function run()
-    {
-        echo $this->router->resolve();
-    }
-
     public static function isGuest()
     {
         return !self::$app->user;
+    }
+
+    public function run()
+    {
+        try {
+            echo $this->router->resolve();
+        } catch (\Exception $e) {
+            $this->response->statusCode($e->getCode());
+            echo $this->router->renderView('_error', [
+                'exception' => $e
+            ]);
+        }
     }
 
     /**
