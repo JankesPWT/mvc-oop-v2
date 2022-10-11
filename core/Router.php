@@ -70,9 +70,13 @@ class Router
     }
     public function layoutContent()
     {
-        $layout = Application::$app->controller->layout;
+        $layoutName = Application::$app->layout;
+        if (Application::$app->controller) {
+            $layoutName = Application::$app->controller->layout;
+        }
+
         ob_start(); //starts output caching
-        include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
+        include_once Application::$ROOT_DIR . "/views/layouts/$layoutName.php";
         return ob_get_clean();
     }
 
