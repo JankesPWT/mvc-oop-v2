@@ -1,3 +1,9 @@
+<?php 
+/** @var $this \app\core\View */
+
+$this->title = 'Kontakt';
+?>
+
 <h1>Contact from Main</h1>
 
 
