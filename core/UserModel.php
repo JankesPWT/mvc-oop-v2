@@ -1,11 +1,11 @@
 <?php
-
 namespace app\core;
-
+use app\core\db\DbModel;
 
 /**
- *
- * @author Jankes <jankes@jankes.com.pl>
+ * Summary of UserModel
+ * @author Jacek Jankes Polit <jankes@jankes.com.pl>
+ * @copyright (c) 2022
  * @package app\core
  */
 abstract class UserModel extends DbModel
