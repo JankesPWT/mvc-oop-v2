@@ -12,7 +12,9 @@ namespace app\core;
 
 class Request
 {
-    public function getPath()
+    private array $routeParams = [];
+
+    public function getUrl()
     {
         $path = $_SERVER['REQUEST_URI'] ?? "/";
         $position = strpos($path, '?'); //pozycja znaku zapytania 
@@ -22,30 +24,30 @@ class Request
         return $path;
     }
 
-    public function method()
+    public function getMethod()
     {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
 
     public function isGet()
     {
-        return $this->method() === 'get';
+        return $this->getMethod() === 'get';
     }
 
     public function isPost()
     {
-        return $this->method() === 'post';
+        return $this->getMethod() === 'post';
     }
 
     public function getBody()
     {
         $body = [];
-        if ($this->method() === 'get') {
+        if ($this->getMethod() === 'get') {
             foreach ($_GET as $key => $value) {
                 $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
         }
-        if ($this->method() === 'post') {
+        if ($this->getMethod() === 'post') {
             foreach ($_POST as $key => $value) {
                 $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
@@ -53,4 +55,21 @@ class Request
 
         return $body;
     }
+
+    public function setRouteParams($params)
+    {
+        $this->routeParams = $params;
+        return $this;
+    }
+    
+    public function getRouteParams()
+    {
+        return $this->routeParams;
+    }
+
+    public function getRouteParam($param, $default = null)
+    {
+        return $this->routeParams[$param] ?? $default;
+    }
+
 }

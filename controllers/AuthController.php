@@ -24,8 +24,13 @@ class AuthController extends Controller
         $this->registerMiddleware(new AuthMiddleware(['profile']));
     }
 
+    
+    
     public function login(Request $request)
     {
+        echo '<pre>';
+        var_dump($request->getBody(), $request->getRouteParam('id'));
+        echo '</pre>';
         $loginForm = new LoginForm();
         if ($request->isPost()) {
             $loginForm->loadData($request->getBody());
